@@ -1,4 +1,15 @@
 <?php
+	function redirect_to ($new_location){
+		header("Location: ".$new_location);
+		exit;
+	}
+
+	function mysql_prep($string){
+		//prepare before use to avoid injection
+		global $connection;
+		$escaped_string = mysqli_real_escape_string ($connection, $string);
+		return $escaped_string;
+	}
 
 	function confirm_query($result_set) {
 		if (!$result_set) {
@@ -68,13 +79,30 @@
 
 	}
 
-	function navigation($subject_id, $page_id){
+	function find_selected_page(){
+		global $current_subject;//you can: 1.define in main then global in func;
+		global $current_page; // 2.global in func first and use in main
+		if(isset($_GET["subject"])){
+			$current_subject = find_subject_by_id($_GET["subject"]);
+			$current_page = null; //think of all case
+		}
+		elseif(isset($_GET["page"])){
+			$current_page = find_page_by_id($_GET["page"]);
+			$current_subject = null;
+		}
+		else{
+			$current_subject = null;
+			$current_page = null;
+		}
+	}
 
+	function navigation($subject_array, $page_array){
+    //subject array or null, page array or null
 				$output = "<ul class=\"subjects\">";
 				$subject_set = find_all_subjects();
 				while($subject = mysqli_fetch_assoc($subject_set)) {
 				$output .=  "<li "; //space at the end
-				if($subject["id"] == $subject_id){ //latter is unique in one single load page
+				if($subject_array && ($subject["id"] == $subject_array["id"])){ //latter is unique in one single load page
 					$output .= "class=\"selected\"";
 				}
 				$output .= ">";
@@ -87,7 +115,7 @@
 				$output .= "<ul class=\"pages\">";
 					while($page = mysqli_fetch_assoc($page_set)) {
 						$output .= "<li ";
-						if($page["id"] == $page_id){ //latter is unique in one single load page
+						if($page_array && ($page["id"] == $page_array["id"])){ //latter is unique in one single load page
 							$output .=  "class=\"selected\"";
 						}
 						$output .=  ">";
