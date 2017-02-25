@@ -4,7 +4,7 @@
 <html lang="en">
 	<head>
 		<title>Emily's Piano</title>
-		<link href="CSS/public.css?v=10" media="all" rel="stylesheet" type="text/css" /> <!--?v=5 for not cache -->
+		<link href="CSS/public.css?v=11" media="all" rel="stylesheet" type="text/css" /> <!--?v=5 for not cache -->
 	</head>
 	<body>
     <div id="header">

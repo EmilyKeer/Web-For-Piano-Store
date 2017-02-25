@@ -23,7 +23,7 @@ a:hover { color: #000099; }
 	margin: 0; padding: 0; text-align: left;
   background: #000099; color: #D4E6F4;
 }
-#header h1 { padding: 1em; margin: 0; }
+#header h1 { padding: 1em; margin: 0; font-family: Papyrus, fantasy; font-weight: 500;}
 #main {
 	height: 600px; width: 100%;
 	margin: 0; padding: 0;

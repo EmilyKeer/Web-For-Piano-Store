@@ -25,7 +25,7 @@
 	  $output .= "Please fix the following errors:";
 	  $output .= "<ul>";
 	  foreach ($errors as $key => $error) {
-	    $output .= "<li>{htmlentities($error)}</li>";
+	    $output .= "<li>" .htmlentities($error). "</li>";
 	  }
 	  $output .= "</ul>";
 	  $output .= "</div>";
@@ -99,7 +99,7 @@
 		global $current_subject;//you can: 1.define in main then global in func;
 		global $current_page; // 2.global in func first and use in main
 		if(isset($_GET["subject"])){
-			$current_subject = find_subject_by_id($_GET["subject"]);
+			$current_subject = find_subject_by_id($_GET["subject"]);//an assoc array
 			$current_page = null; //think of all case
 		}
 		elseif(isset($_GET["page"])){
