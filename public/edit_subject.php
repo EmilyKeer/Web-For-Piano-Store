@@ -99,6 +99,11 @@ else {
 		</form>
 		<br />
 		<a href="manage_content.php">Cancel</a>
+		&nbsp;
+		&nbsp;
+		<a href="delete_subject.php?subject=<?php echo $current_subject["id"]?> " onlick="return confirm(
+			'Are you sure to delete the subject?'
+			);">Delete subject</a>
 	</div>
 </div>
 
