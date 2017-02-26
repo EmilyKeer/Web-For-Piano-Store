@@ -1,25 +1,22 @@
 <?php require_once("../includes/session.php"); ?>
 <?php require_once("../includes/db_connection.php"); ?>
 <?php require_once("../includes/functions.php"); ?>
-
 <?php $layout_context = "public"; ?>
 <?php include("../includes/layouts/header.php"); ?>
-<?php find_selected_page(); ?>
+<?php find_selected_page(true); ?>
 
 <div id="main">
   <div id="navigation">
 		<?php echo public_navigation($current_subject, $current_page); ?>
   </div>
   <div id="page">
-		<?php if ($current_subject) { ?>
-	    <h2>Manage Subject</h2>
-			Menu name: <?php echo htmlentities($current_subject["menu_name"]); ?><br />
+		<?php if ($current_page) { ?>
+      <h2><?php echo htmlentities($current_page["menu_name"]); ?></h2>
 
-		<?php } elseif ($current_page) { ?>
-			<?php echo htmlentities($current_page["content"]); ?>
-			
+			<p><?php echo nl2br(htmlentities($current_page["content"])); ?><p>
+
 		<?php } else { ?>
-			Please select a subject or a page.
+			<p>Welcome! <p>
 		<?php }?>
   </div>
 </div>

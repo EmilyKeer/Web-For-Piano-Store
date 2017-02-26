@@ -9,7 +9,7 @@
   // Unlike new_page.php, we don't need a subject_id to be sent
   // We already have it stored in pages.subject_id.
   if (!$current_page) {
-    // page ID was missing or invalid or 
+    // page ID was missing or invalid or
     // page couldn't be found in database
     redirect_to("manage_content.php");
   }
@@ -18,7 +18,7 @@
 <?php
 if (isset($_POST['submit'])) {
   // Process the form
-  
+
   $id = $current_page["id"];
   $menu_name = mysql_prep($_POST["menu_name"]);
   $position = (int) $_POST["position"];
@@ -28,12 +28,12 @@ if (isset($_POST['submit'])) {
   // validations
   $required_fields = array("menu_name", "position", "visible", "content");
   validate_presences($required_fields);
-  
+
   $fields_with_max_lengths = array("menu_name" => 30);
   validate_max_lengths($fields_with_max_lengths);
-  
+
   if (empty($errors)) {
-    
+
     // Perform Update
 
     $query  = "UPDATE pages SET ";
@@ -53,15 +53,15 @@ if (isset($_POST['submit'])) {
       // Failure
       $_SESSION["message"] = "Page update failed.";
     }
-  
+
   }
 } else {
   // This is probably a GET request
-  
+
 } // end: if (isset($_POST['submit']))
 
 ?>
-
+<?php $layout_context = "admin"; ?>
 <?php include("../includes/layouts/header.php"); ?>
 
 <div id="main">
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
   <div id="page">
     <?php echo message(); ?>
     <?php echo form_errors($errors); ?>
-    
+
     <h2>Edit Page: <?php echo htmlentities($current_page["menu_name"]); ?></h2>
     <form action="edit_page.php?page=<?php echo urlencode($current_page["id"]); ?>" method="post">
       <p>Menu name:
@@ -80,7 +80,7 @@ if (isset($_POST['submit'])) {
       <p>Position:
         <select name="position">
         <?php
-          $page_set = find_pages_for_subject($current_page["subject_id"]);
+          $page_set = find_pages_for_subject($current_page["subject_id"],false);
           $page_count = mysqli_num_rows($page_set);
           for($count=1; $count <= $page_count; $count++) {
             echo "<option value=\"{$count}\"";
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
     &nbsp;
     &nbsp;
     <a href="delete_page.php?page=<?php echo urlencode($current_page["id"]); ?>" onclick="return confirm('Are you sure?');">Delete page</a>
-    
+
   </div>
 </div>
 

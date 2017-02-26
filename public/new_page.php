@@ -8,7 +8,7 @@
 <?php
   // Can't add a new page unless we have a subject as a parent!
   if (!$current_subject) {
-    // subject ID was missing or invalid or 
+    // subject ID was missing or invalid or
     // subject couldn't be found in database
     redirect_to("manage_content.php");
   }
@@ -17,14 +17,14 @@
 <?php
 if (isset($_POST['submit'])) {
   // Process the form
-  
+
   // validations
   $required_fields = array("menu_name", "position", "visible", "content");
   validate_presences($required_fields);
-  
+
   $fields_with_max_lengths = array("menu_name" => 30);
   validate_max_lengths($fields_with_max_lengths);
-  
+
   if (empty($errors)) {
     // Perform Create
 
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
     $visible = (int) $_POST["visible"];
     // be sure to escape the content
     $content = mysql_prep($_POST["content"]);
-  
+
     $query  = "INSERT INTO pages (";
     $query .= "  subject_id, menu_name, position, visible, content";
     $query .= ") VALUES (";
@@ -54,11 +54,11 @@ if (isset($_POST['submit'])) {
   }
 } else {
   // This is probably a GET request
-  
+
 } // end: if (isset($_POST['submit']))
 
 ?>
-
+<?php $layout_context = "admin"; ?>
 <?php include("../includes/layouts/header.php"); ?>
 <div id="main">
   <div id="navigation">
@@ -67,7 +67,7 @@ if (isset($_POST['submit'])) {
   <div id="page">
     <?php echo message(); ?>
     <?php echo form_errors($errors); ?>
-    
+
     <h2>Create Page</h2>
     <form action="new_page.php?subject=<?php echo urlencode($current_subject["id"]); ?>" method="post">
       <p>Menu name:
@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
       <p>Position:
         <select name="position">
         <?php
-          $page_set = find_pages_for_subject($current_subject["id"]);
+          $page_set = find_pages_for_subject($current_subject["id"], false);
           $page_count = mysqli_num_rows($page_set);
           for($count=1; $count <= ($page_count + 1); $count++) {
             echo "<option value=\"{$count}\">{$count}</option>";
