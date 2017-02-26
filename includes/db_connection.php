@@ -1,8 +1,8 @@
 <?php
   define("DB_SERVER", "127.0.0.1:3307");
 	define("DB_USER", "Hebe");
-	define("DB_PASS", "server2017");
-	define("DB_NAME", "widget_corp");
+	define("DB_PASS", "your password");
+	define("DB_NAME", "piano_store");
 
   // 1. Create a database connection
   $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
