@@ -1,8 +1,8 @@
 <?php
-  define("DB_SERVER", "127.0.0.1:3307");
-	define("DB_USER", "Hebe");
-	define("DB_PASS", "your password");
-	define("DB_NAME", "piano_store");
+  define("DB_SERVER", "localhost");//localhost setting 
+	define("DB_USER", "Hebe"); //use your username for database
+	define("DB_PASS", "password");//use your password for database
+	define("DB_NAME", "piano_store");//use the name of the database
 
   // 1. Create a database connection
   $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
